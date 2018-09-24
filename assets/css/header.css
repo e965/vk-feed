@@ -1,0 +1,45 @@
+.header {
+	background-color: var(--color);
+
+	color: #fff;
+}
+
+.header .content {
+	display: flex;
+	align-items: center;
+
+	position: relative;
+}
+
+.header .content > * {
+    width: 180px;
+	position: absolute;
+}
+
+.header .brand {
+    left: 0;
+
+    cursor: default;
+    user-select: none;
+}
+
+.header .brand > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.header .brand .logo {
+	margin-right: 5px;
+}
+
+.header .brand .title {
+	font-size: var(--font-size);
+}
+
+.header .profile {
+	width: 125px;
+}
+
+.header .profile:empty {
+	display: none;
+}

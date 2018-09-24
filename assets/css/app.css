@@ -1,0 +1,35 @@
+* {
+	box-sizing: border-box;
+	padding: 0; margin: 0;
+}
+
+:root {
+	--color: #4a76a8;
+	--font-size: 16px;
+}
+
+html, body, .container {
+	width: 100%; height: 100%;
+}
+
+.container {
+	display: grid;
+
+	grid-template-rows: 40px 1fr;
+	grid-template-columns: 1fr;
+
+	font-family: -apple-system, BlinkMacSystemFontRoboto, Arial, Helvetica Neue, sans-serif;
+	font-size: 0;
+
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+.content {
+	max-width: 960px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.nodes {
+    display: none;
+}

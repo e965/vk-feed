@@ -1,0 +1,20 @@
+@media screen and (max-width: 980px) {
+	.content {
+		max-width: calc(100% - 20px);
+	}
+}
+
+@media screen and (max-width: 499px) {
+    .header .content {
+        justify-content: center;
+    }
+
+    .header .brand {
+        width: auto;
+        position: static;
+    }
+
+	.header .profile {
+		display: none;
+	}
+}
