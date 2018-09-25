@@ -32,21 +32,43 @@
 		0 0 0 1px #e3e4e8;
 }
 
+.main .separator-line {
+	margin: 10px 0;
+
+	border-top: 1px solid #d3d9de;
+}
+
 .main .button {
 	display: inline-block;
-    padding: 5px 15px;
+	padding: 5px 15px;
 
-    background-color: var(--color);
+	background-color: var(--color);
 
-    border: 0;
+	border: 0;
 	border-radius: 4px;
 
-    color: #fff;
+	color: #fff;
 	white-space: nowrap;
 
 	cursor: pointer;
 }
 
 .main .button:hover {
-    opacity: .95;
+	opacity: .95;
+}
+
+.main .spoiler:not(:first-of-type) {
+	margin-top: 10px;
+}
+
+.main .spoiler .spoiler-title {
+	cursor: pointer;
+}
+
+.main .input {
+	display: inline-block;
+	padding: 5px 10px;
+
+	border: 1px solid #d3d9de;
+	border-radius: 1px;
 }
