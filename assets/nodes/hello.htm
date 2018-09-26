@@ -1,87 +1,87 @@
 <html><body>
 
 	<div class="block" data-node="hello">
-        <div class="block-content">
-            <p>Привет!</p>
-            <p>Для использования приложения авторизуйся через VK, пожалуйста.</p>
+		<div class="block-content">
+			<p>Привет!</p>
+			<p>Для использования приложения авторизуйся через VK, пожалуйста.</p>
 
-            <div class="auth-things" style="margin: 1em 0 0; cursor: default">
-                <div class="auth-buttons">
-                    <button class="button" data-action="auth-forever">Авторизация с "бесконечным" ключом</button>
+			<div class="auth-things" style="margin: 1em 0 0; cursor: default">
+				<div class="auth-buttons">
+					<button class="button" data-action="auth-forever">Авторизация с "бесконечным" ключом</button>
 
-                    <br>
+					<br>
 
-                    <button style="margin-top: 5px" class="button" data-action="auth">Авторизация на сутки</button>
-                </div>
+					<button style="margin-top: 5px" class="button" data-action="auth">Авторизация на сутки</button>
+				</div>
 
-                <br>
+				<br>
 
-                <form class="auth-form">
-                    <p><label for="auth-input">После окончания авторизации скопируй URL, который будет у открытой в новом окне страницы, в это поле:</label></p>
+				<form class="auth-form">
+					<p><label for="auth-input">После окончания авторизации скопируй URL, который будет у открытой в новом окне страницы, в это поле:</label></p>
 
-                    <input type="url" class="input auth-input" id="auth-input" style="width: 100%; margin: 5px 0" autocomplete="off" placeholder="https://oauth.vk.com/blank.html#access_token=..." pattern="https://.*" required>
+					<input type="url" class="input auth-input" id="auth-input" style="width: 100%; margin: 5px 0" autocomplete="off" placeholder="https://oauth.vk.com/blank.html#access_token=..." pattern="https://.*" required>
 
-                    <button class="button" type="submit">Введено!</button>
-                </form>
-            </div>
-        </div>
-
-		<div class="separator-line"></div>
-
-        <div class="block-content">
-            <h3 style="text-align: center">FAQ:</h3>
-
-            <details class="spoiler">
-                <summary class="spoiler-title">Чем отличаются виды авторизации?</summary>
-
-                <div class="spoiler-content">
-                    <p>Следует начать с того, зачем вообще сделано два вида авторизации: API-ключ от VK хранится у вас на устройстве в незащищённом виде, и поэтому сторонние приложения, имеющие доступ к локальному хранилищу браузера (например, расширения браузера), могут его украсть.<p>
-
-                    <br>
-
-                    <p>Обычная авторизация даёт приложению доступ всего на сутки. Этот вариант рекомендуется, если вы параноик, который беспокоится за безопасность своих данных. В этом случае по истечении действия ключа, необходимо будет авторизоваться заново.</p>
-                    <p>Авторизация с "бесконечным" ключом даёт приложению, собственно, бесконечный доступ к данным. Этот вариант рекомендуется, если вам нечего скрывать, или если вы уверены, что вы обеспечили себе достаточный уровень безопасности.</p>
-
-                    <br>
-
-                    <p>В любом случае, можно вручную отозвать доступ у приложения. Сделать это можно здесь: <a href="https://vk.com/settings?act=apps">vk.com/settings?act=apps</a>.</p>
-                </div>
-            </details>
-
-            <details class="spoiler">
-                <summary class="spoiler-title">Зачем так сложно?</summary>
-
-                <div class="spoiler-content">
-                    <p>Иначе не позволяет VK API и правила его использования.<p>
-
-                    <p>¯\_(ツ)_/¯</p>
-                </div>
-            </details>
-
-            <details class="spoiler">
-                <summary class="spoiler-title">Как мы храним твои данные?</summary>
-
-                <div class="spoiler-content">
-                    <p>Мы не храним твои данные. Для доступа к твоим новостям приложение использует специальный API-ключ, который ему выдаёт VK API после авторизации, и который хранится на твоём устройстве в локальном хранилище браузера.</p>
-
-                    <br>
-
-                    <p>Но так как мы используем сторонние сервисы для обеспечения стабильной и комфортной работы приложения, то эти самые сервисы могут собирать различную информацию о тебе (например, IP-адрес или User agent браузера).</p>
-                    <p>Поэтому настоятельно просим тебя изучить следующие политики конфиденциальности перед использованием приложения: <a href="https://vk.com/privacy">vk.com</a>, <a href="https://privacy.google.com">google.com</a>, <a href="https://help.github.com/articles/github-privacy-statement/">github.com</a>, <a href="https://www.jsdelivr.com/privacy-policy-jsdelivr-net">cdn.jsdelivr.net</a>.</p>
-
-                    <br>
-
-                    <p>Используя данное приложение, ты принимаешь все условия, указанные в приложенных выше документах.</p>
-                    <p>Иначе, покинь страницу и (по желанию) почисти cookie.</p>
-                </div>
-            </details>
-        </div>
+					<button class="button" type="submit">Введено!</button>
+				</form>
+			</div>
+		</div>
 
 		<div class="separator-line"></div>
 
-        <div class="block-content">
-            <p>Исходный код приложения доступен <a href="https://github.com/tehcojam/vk-feed">на GitHub</a>.</p>
-        </div>
+		<div class="block-content">
+			<h3 style="text-align: center">FAQ:</h3>
+
+			<details class="spoiler">
+				<summary class="spoiler-title">Зачем так сложно?</summary>
+
+				<div class="spoiler-content">
+					<p>Иначе не позволяет VK API и правила его использования.<p>
+
+					<p>¯\_(ツ)_/¯</p>
+				</div>
+			</details>
+
+			<details class="spoiler">
+				<summary class="spoiler-title">Чем отличаются виды авторизации?</summary>
+
+				<div class="spoiler-content">
+					<p>Следует начать с того, зачем вообще сделано два вида авторизации: API-ключ от VK хранится у вас на устройстве в незащищённом виде, и поэтому сторонние приложения, имеющие доступ к локальному хранилищу браузера (например, расширения браузера), могут его украсть.<p>
+
+					<br>
+
+					<p>Обычная авторизация даёт приложению доступ всего на сутки. Этот вариант рекомендуется, если вы параноик, который беспокоится за безопасность своих данных. В этом случае по истечении действия ключа, необходимо будет авторизоваться заново.</p>
+					<p>Авторизация с "бесконечным" ключом даёт приложению, собственно, бесконечный доступ к данным. Этот вариант рекомендуется, если вам нечего скрывать, или если вы уверены, что вы обеспечили себе достаточный уровень безопасности.</p>
+
+					<br>
+
+					<p>В любом случае, можно вручную отозвать доступ у приложения. Сделать это можно здесь: <a href="https://vk.com/settings?act=apps">vk.com/settings?act=apps</a>.</p>
+				</div>
+			</details>
+
+			<details class="spoiler">
+				<summary class="spoiler-title">Как мы храним твои данные?</summary>
+
+				<div class="spoiler-content">
+					<p>Мы не храним твои данные. Для доступа к твоим новостям приложение использует специальный API-ключ, который ему выдаёт VK API после авторизации, и который хранится на твоём устройстве в локальном хранилище браузера.</p>
+
+					<br>
+
+					<p>Но так как мы используем сторонние сервисы для обеспечения стабильной и комфортной работы приложения, то эти самые сервисы могут собирать различную информацию о тебе (например, IP-адрес или User agent браузера).</p>
+					<p>Поэтому настоятельно просим тебя изучить следующие политики конфиденциальности перед использованием приложения: <a href="https://vk.com/privacy">vk.com</a>, <a href="https://privacy.google.com">google.com</a>, <a href="https://help.github.com/articles/github-privacy-statement/">github.com</a>, <a href="https://www.jsdelivr.com/privacy-policy-jsdelivr-net">cdn.jsdelivr.net</a>.</p>
+
+					<br>
+
+					<p>Используя данное приложение, ты принимаешь все условия, указанные в приложенных выше документах.</p>
+					<p>Иначе, покинь страницу и (по желанию) почисти cookie.</p>
+				</div>
+			</details>
+		</div>
+
+		<div class="separator-line"></div>
+
+		<div class="block-content">
+			<p>Исходный код приложения доступен <a href="https://github.com/tehcojam/vk-feed">на GitHub</a>.</p>
+		</div>
 	</div>
 
 </body></html>

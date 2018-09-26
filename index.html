@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 
 	<link rel="stylesheet" href="./assets/css/app.css">
-	<link rel="stylesheet" href="./assets/css/header.css">
+	<link rel="stylesheet" href="./assets/css/header-n-footer.css">
 	<link rel="stylesheet" href="./assets/css/main.css">
 	<link rel="stylesheet" href="./assets/css/feed.css">
 	<link rel="stylesheet" href="./assets/css/mediaq.css">
@@ -37,17 +37,30 @@
 					</div>
 				</noscript>
 			</div>
+
+			<footer class="footer">
+				<ul class="list">
+					<li><a href="https://github.com/tehcojam/vk-feed">исходники</a></li>
+					<li><a href="https://github.com/tehcojam/vk-feed/issues">баг-трекер</a></li>
+				</ul>
+
+				<ul class="list">
+					<li><a href="javascript:void(0)" data-action="settings">настройки</a></li>
+					<li><a href="javascript:void(0)" data-action="exit">выход</a></li>
+				</ul>
+			</footer>
 		</main>
 	</div>
 
 	<link rel="import" href="./assets/nodes/hello.htm" data-import="hello">
+	<link rel="import" href="./assets/nodes/settings.htm" data-import="settings">
 
-	<script src="https://cdn.jsdelivr.net/npm/kamina-js@1.2.7/dist/kamina.min.js" integrity="sha256-O7VS3dDmlzbLeD77bEGhtckWN2plD9qFSTD0W7oMtsM=" crossorigin="anonymous" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/fetch-jsonp@1.1.3/build/fetch-jsonp.js" integrity="sha256-tq+ecRrapUzktALBIRvPglMV8SWXcRubLF1ZQLskfp8=" crossorigin="anonymous" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/kamina-js@1.2.7/dist/kamina.min.js" integrity="sha256-O7VS3dDmlzbLeD77bEGhtckWN2plD9qFSTD0W7oMtsM=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fetch-jsonp@1.1.3/build/fetch-jsonp.js" integrity="sha256-tq+ecRrapUzktALBIRvPglMV8SWXcRubLF1ZQLskfp8=" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/autolinker@1.7.1/dist/Autolinker.min.js" integrity="sha256-yZXU/f+V8xVBqX0cCVVySvxvjU6h8uuQb1N0e8jRvhE=" crossorigin="anonymous" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/autolinker@1.7.1/dist/Autolinker.min.js" integrity="sha256-yZXU/f+V8xVBqX0cCVVySvxvjU6h8uuQb1N0e8jRvhE=" crossorigin="anonymous"></script>
 
- 	<script src="./config.js" defer></script>
-	<script src="./assets/js/app.js" defer></script>
-	<script src="./assets/js/feed.js" defer></script>
+ 	<script src="./config.js"></script>
+	<script src="./assets/js/app.js"></script>
+	<script src="./assets/js/feed.js"></script>
 </body></html>

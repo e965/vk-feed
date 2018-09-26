@@ -108,6 +108,11 @@ let getFeed = ({ feedContainer = $create.elem('div'), next = '' }) => {
 		})
 }
 
+let exit = () => {
+	appData.remove()
+	location.reload()
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 	let mainContent = $make.qs('.main .content')
 
@@ -205,8 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
 					appInit()
 				}
 			})
-
-
 	}
 
 	let appInit = () => {
@@ -253,4 +256,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	} else {
 		appInit()
 	}
+
+	$make.qs('[data-action="settings"]')
+		.onclick = () => {}
+
+	$make.qs('[data-action="exit"]')
+		.onclick = () => exit()
+
 })

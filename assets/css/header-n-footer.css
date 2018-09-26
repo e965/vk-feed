@@ -67,3 +67,32 @@
 	font-size: calc(var(--font-size) * .9);
 	font-weight: 700;
 }
+
+.footer {
+    padding: 10px;
+
+    text-align: center;
+    font-size: calc(var(--font-size) * .8);
+}
+
+.footer .list {
+	display: inline-block;
+}
+
+.footer .list:not(:first-of-type):before {
+	content: '\2022';
+	margin: 0 10px;
+}
+
+.footer .list,
+.footer .list a {
+	color: #939699;
+}
+
+.footer .list li {
+	display: inline-block;
+}
+
+.footer .list li:not(:first-child) {
+	margin-left: 5px;
+}
