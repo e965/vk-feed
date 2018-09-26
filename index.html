@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="./assets/css/app.css">
 	<link rel="stylesheet" href="./assets/css/header.css">
 	<link rel="stylesheet" href="./assets/css/main.css">
+	<link rel="stylesheet" href="./assets/css/feed.css">
 	<link rel="stylesheet" href="./assets/css/mediaq.css">
 </head><body>
 	<div class="container">
@@ -29,20 +30,24 @@
 		<main class="main">
 			<div class="content" data-error="no-js" data-style='centred'>
 				<noscript class="block">
-					<p>Пожалуйста, включи JavaScript в своём браузере.<p>
-					<p>Данное приложение без этой технологии работать не будет.<p>
-					<p>Спасибо.<p>
+					<div class="block-content">
+						<p>Пожалуйста, включи JavaScript в своём браузере.</p>
+						<p>Приложение без этого работать не будет.</p>
+						<p>Спасибо.</p>
+					</div>
 				</noscript>
 			</div>
 		</main>
 	</div>
 
-	<div class="nodes">
-		<link rel="import" href="./assets/nodes/hello.htm" data-import='hello'>
-	</div>
+	<link rel="import" href="./assets/nodes/hello.htm" data-import="hello">
 
-	<script src="https://cdn.jsdelivr.net/npm/kamina-js@1.2.7/dist/kamina.min.js" integrity="sha256-O7VS3dDmlzbLeD77bEGhtckWN2plD9qFSTD0W7oMtsM=" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/fetch-jsonp@1.1.3/build/fetch-jsonp.js" integrity="sha256-tq+ecRrapUzktALBIRvPglMV8SWXcRubLF1ZQLskfp8=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/kamina-js@1.2.7/dist/kamina.min.js" integrity="sha256-O7VS3dDmlzbLeD77bEGhtckWN2plD9qFSTD0W7oMtsM=" crossorigin="anonymous" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/fetch-jsonp@1.1.3/build/fetch-jsonp.js" integrity="sha256-tq+ecRrapUzktALBIRvPglMV8SWXcRubLF1ZQLskfp8=" crossorigin="anonymous" defer></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/autolinker@1.7.1/dist/Autolinker.min.js" integrity="sha256-yZXU/f+V8xVBqX0cCVVySvxvjU6h8uuQb1N0e8jRvhE=" crossorigin="anonymous" defer></script>
+
+ 	<script src="./config.js" defer></script>
 	<script src="./assets/js/app.js" defer></script>
+	<script src="./assets/js/feed.js" defer></script>
 </body></html>

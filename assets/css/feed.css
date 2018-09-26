@@ -1,0 +1,64 @@
+.feed {
+
+}
+
+.feed .post {
+
+}
+
+.feed .post .block-content {
+	padding-top: 20px;
+}
+
+.post:not(:first-child) {
+	margin-top: 15px;
+}
+
+.post .post-header {
+	margin-bottom: 10px;
+}
+
+.post .post-header > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.post .post-header-img {
+	width: 50px;
+
+	margin-right: 10px;
+
+	border-radius: 50%;
+
+}
+
+.post .post-meta .post-author a {
+	font-weight: 600;
+}
+
+.post .post-meta .post-author a[data-verified]:after {
+	content: '☑️';
+	margin-left: 5px;
+}
+
+.post .post-meta .post-time {
+	margin-top: 5px;
+}
+
+.post .post-meta .post-time a {
+	color: #939393;
+}
+
+.post .post-text {
+	line-height: 1.4;
+}
+
+.feed-load {
+	margin-top: 10px !important;
+	text-align: center;
+}
+
+.feed-load .load-btn {
+	display: block;
+	width: 100%;
+}

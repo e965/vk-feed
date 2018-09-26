@@ -4,11 +4,15 @@
 
 .main .content {
 	font-size: var(--font-size);
+
+	padding: 10px 0;
 }
 
 .main .content > * {
 	max-width: 600px;
 	width: 100%;
+
+	margin: 0 auto;
 }
 
 .main .content[data-style='centred'] {
@@ -25,16 +29,17 @@
 	background-color: #fff;
 
 	border-radius: 2px;
-	padding: 10px 20px;
 
 	box-shadow:
 		0 1px 0 0 #d7d8db,
 		0 0 0 1px #e3e4e8;
 }
 
-.main .separator-line {
-	margin: 10px 0;
+.main .block .block-content {
+	padding: 10px 20px;
+}
 
+.main .separator-line {
 	border-top: 1px solid #d3d9de;
 }
 
@@ -49,8 +54,6 @@
 
 	color: #fff;
 	white-space: nowrap;
-
-	cursor: pointer;
 }
 
 .main .button:hover {

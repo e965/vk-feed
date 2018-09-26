@@ -12,34 +12,58 @@
 }
 
 .header .content > * {
-    width: 180px;
+	width: 180px;
 	position: absolute;
+
+	cursor: default;
+	user-select: none;
+}
+
+.header .content > * > * {
+	display: inline-block;
+	vertical-align: middle;
+
+	-webkit-font-smoothing: antialiased;
 }
 
 .header .brand {
-    left: 0;
-
-    cursor: default;
-    user-select: none;
-}
-
-.header .brand > * {
-	display: inline-block;
-	vertical-align: middle;
+	left: 0;
 }
 
 .header .brand .logo {
+	height: 20px;
 	margin-right: 5px;
 }
 
 .header .brand .title {
-	font-size: var(--font-size);
+	font-size: calc(var(--font-size) * 1.2);
 }
 
 .header .profile {
-	width: 125px;
+	--avatar-height: 25px;
+
+	right: 0;
+
+	text-align: right;
 }
 
 .header .profile:empty {
 	display: none;
+}
+
+.header .profile .profile-image {
+	width: var(--avatar-height);
+	height: var(--avatar-height);
+
+	margin-left: 5px;
+
+	background-position: center center;
+	background-size: contain;
+
+	border-radius: 15px;
+}
+
+.header .profile .profile-name {
+	font-size: calc(var(--font-size) * .9);
+	font-weight: 700;
 }
