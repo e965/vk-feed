@@ -252,8 +252,6 @@ let feedRender = ({ data = {}, feedContainer }) => {
 
 				let videoBlock = $create.elem('div', '', 'post-video')
 
-				console.log(video)
-
 				let videoThumb = $create.elem('picture', '', 'video-thumb')
 
 				let videoThumbImg = $create.elem('img')

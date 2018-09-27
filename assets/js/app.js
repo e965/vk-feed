@@ -101,11 +101,16 @@ let getFeed = ({ feedContainer = $create.elem('div'), next = '' }) => {
 		count: 10,
 		filter: ['post'].toString(),
 		fields: ['verified', 'photo_100'].toString(),
+		sources: [''].toString()
 	}
+
+	let source = params.sources
+		? `source_ids=${params.sources}&`
+		: ''
 
 	next = next ? `&start_from=${next}` : ''
 
-	fetchJsonp(queryURL({ method: 'newsfeed.get', params: `source_ids=g47590299&filters=${params.filter}&count=${params.count}&fields=${params.fields}${next}` }))
+	fetchJsonp(queryURL({ method: 'newsfeed.get', params: `${source}filters=${params.filter}&count=${params.count}&fields=${params.fields}${next}` }))
 		.then(response => response.json())
 		.then(data => feedRender({
 			data: data.response,
