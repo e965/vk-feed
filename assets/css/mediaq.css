@@ -17,4 +17,30 @@
 	.header .profile {
 		display: none;
 	}
+
+	.feed .post-album,
+	.feed .post-video {
+		grid-template-rows: 200px auto;
+		grid-template-columns: 1fr;
+	}
+
+	.feed .post-podcast {
+		grid-template:
+		'p-covr' 100px
+		'p-info' auto
+		'p-lstn' 40px;
+	}
+
+	.feed .post-album .album-thumb,
+	.feed .post-video .video-thumb,
+	.feed .post-podcast .podcast-cover {
+		border-bottom: 1px solid #d3d9de;
+		border-right: 0;
+	}
+
+	.feed .post-album .album-thumb img,
+	.feed .post-video .video-thumb img,
+	.feed .post-podcast .podcast-cover img {
+
+	}
 }

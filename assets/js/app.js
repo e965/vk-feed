@@ -18,7 +18,7 @@ let customizeExternalLinks = () => {
 }
 
 let appData = {
-	set: (data = { token, userID, expiresTime }) => {
+	set: (data = { token, userID, expiresTime, scope }) => {
 		$ls.set(
 			APP_CONFIG.storage.appData,
 			JSON.stringify(data)
@@ -44,15 +44,15 @@ let appData = {
 		if (
 			'token' in data &&
 			'userID' in data &&
-			'expiresTime' in data
+			'expiresTime' in data &&
+			'scope' in data
 		) {
 			switch (key) {
 				case 'token':
-					neededData = data.token; break
 				case 'userID':
-					neededData = data.userID; break
 				case 'expiresTime':
-					neededData = data.expiresTime; break
+				case 'scope':
+					neededData = data[key]; break
 			}
 		} else {
 			console.warn('Данные приложения не установлены. Необходимо авторизоваться.')
@@ -74,10 +74,8 @@ let auth = ({ type = 'normal' }) => {
 	 * https://vk.com/dev/implicit_flow_user
 	 */
 
-	let scope = ['friends', 'wall', 'photos']
-
 	if (type == 'forever') {
-		scope.push('offline')
+		APP_CONFIG.vk.scope.push('offline')
 	} else {
 		// сохранять время нажатия на кнопку необходимо для вычисления примерного времени действия токена
 		$ls.set(
@@ -86,7 +84,7 @@ let auth = ({ type = 'normal' }) => {
 		)
 	}
 
-	let vkAuthURL = `https://${APP_CONFIG.vk.domain_oauth}/authorize?client_id=${APP_CONFIG.vk.app_id}&display=page&redirect_uri=https://${APP_CONFIG.vk.domain_oauth}/blank.html&response_type=token&scope=${scope.toString()}&v=${APP_CONFIG.vk.version}&state=${APP_CONFIG.app_name}`
+	let vkAuthURL = `https://${APP_CONFIG.vk.domain_oauth}/authorize?client_id=${APP_CONFIG.vk.app_id}&display=page&redirect_uri=https://${APP_CONFIG.vk.domain_oauth}/blank.html&response_type=token&scope=${APP_CONFIG.vk.scope.toString()}&v=${APP_CONFIG.vk.version}&state=${APP_CONFIG.app_name}`
 
 	window.open(vkAuthURL)
 }
@@ -217,7 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
 					appData.set({
 						token:        authInputURLhashParams.get('access_token'),
 						userID:       Number(authInputURLhashParams.get('user_id')),
-						expiresTime:  Number(authInputURLhashParams.get('expires_in'))
+						expiresTime:  Number(authInputURLhashParams.get('expires_in')),
+						scope:        APP_CONFIG.vk.scope
 					})
 
 					appInit()

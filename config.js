@@ -10,7 +10,8 @@ const APP_CONFIG = {
 		domain_oauth: 'oauth.vk.com',
 		domain_api: 'api.vk.com',
 		app_id: 6703807,
-		version: 5.85
+		version: 5.85,
+		scope: ['friends', 'wall', 'photos']
 	},
 
 	// названия кючей у айтемов в локальном хранилище

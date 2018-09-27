@@ -33,6 +33,13 @@ html, body, .container {
 	display: none;
 }
 
+.text {
+	line-height: 1.4;
+	overflow: hidden;
+	word-wrap: break-word;
+	text-overflow: ellipsis;
+}
+
 a {
 	color: var(--color);
 	text-decoration: none;
