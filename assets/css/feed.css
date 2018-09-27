@@ -2,6 +2,13 @@
 
 }
 
+.feed:empty:before {
+	content: 'загрузка...';
+	display: block;
+
+	text-align: center;
+}
+
 .feed .post {
 
 }
@@ -51,6 +58,169 @@
 
 .post .post-text {
 	line-height: 1.4;
+	overflow: hidden;
+	word-wrap: break-word;
+	text-overflow: ellipsis;
+}
+
+.post .post-attachments {
+	margin-top: 5px;
+}
+
+.post .post-attachments:empty {
+	display: none;
+}
+
+.post .post-attachments ul li {
+	list-style: none;
+}
+
+.post .post-photos {
+	display: grid;
+	text-align: center;
+}
+
+.post .post-photos[data-length] {
+	display: grid;
+}
+
+.post .post-photos[data-length] li {
+	padding: 1px;
+}
+
+.post .post-photos[data-length] img {
+	object-fit: cover;
+	width: 100%; height: 100%;
+}
+
+.post .post-photos[data-length='2'] {
+	grid-template:
+		'a b' auto / .6fr .4fr;
+
+}
+
+.post .post-photos[data-length='3'] {
+	grid-template:
+		'a b' 150px
+		'a c' 150px / .6fr .4fr;
+}
+
+.post .post-photos[data-length='4'] {
+	grid-template:
+		'a b' 100px
+		'a c' 100px
+		'a d' 100px / .6fr .4fr;
+}
+
+.post .post-photos[data-length='5'] {
+	grid-template:
+		'a a b' 300px
+		'c d e' 150px / .33fr .33fr .33fr;
+}
+
+.post .post-photos[data-length='6'] {
+	grid-template:
+		'a a b' 150px
+		'c d d' 150px
+		'e e f' 150px / .33fr .33fr .33fr;
+}
+
+.post .post-photos[data-length='7'] {
+	grid-template:
+		'a a a a a a' 300px
+		'b c d e f g' 50px;
+}
+
+.post .post-photos[data-length='8'] {
+	grid-template:
+		'a a a b b b' 150px
+		'c c d d e e' 150px
+		'f f g g h h' 150px;
+}
+
+.post .post-photos[data-length='9'] {
+	grid-template:
+		'a b c' 150px
+		'd e f' 150px
+		'g h i' 150px;
+}
+
+.post .post-photos[data-length='10'] {
+	grid-template:
+		'a a b b b' 150px
+		'c d d e e' 150px
+		'f g h i j' 150px;
+}
+
+.post .post-photos a {
+	display: flex;
+	width: 100%; height: 100%;
+
+	align-items: center;
+	justify-content: center;
+}
+
+.post .post-photos img {
+	max-width: 100%;
+}
+
+.post .post-photos:not([data-length]) img {
+	max-width: 100%;
+	max-height: 400px;
+}
+
+.post .post-album,
+.post .post-video {
+	display: grid;
+
+	grid-template-rows: auto;
+	grid-template-columns: 100px 1fr;
+
+	margin-top: 5px;
+
+	border: 1px solid #d3d9de;
+}
+
+.post .post-album .album-thumb,
+.post .post-video .video-thumb {
+	width: 100px; height: 100%;
+	min-height: 100px;
+
+	position: relative;
+
+	border-right: 1px solid #d3d9de;
+
+	cursor: default;
+	user-select: none;
+}
+
+.post .post-album .album-thumb img,
+.post .post-video .video-thumb img {
+	width: 100%; height: 100%;
+
+	object-fit: cover;
+}
+
+.post .post-album .album-size,
+.post .post-video .video-duration {
+	position: absolute;
+
+	background-color: rgba(204, 204, 204, .9);
+
+	bottom: 10px; left: 10px;
+
+	padding: 5px;
+}
+
+.post .post-album .album-info,
+.post .post-video .video-info {
+	padding: 10px;
+}
+
+.post .post-album .album-description,
+.post .post-video .video-description {
+	margin-top: 5px;
+	opacity: .5;
 }
 
 .feed-load {

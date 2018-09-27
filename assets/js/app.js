@@ -97,7 +97,15 @@ let queryURL = ({ method = '', params = false }) =>
 let getFeed = ({ feedContainer = $create.elem('div'), next = '' }) => {
 	// https://vk.com/dev/newsfeed.get
 
-	fetchJsonp(queryURL({ method: 'newsfeed.get', params: `count=10&fields=verified,photo_100${next ? '&start_from=' + next : ''}` }))
+	let params = {
+		count: 10,
+		filter: ['post'].toString(),
+		fields: ['verified', 'photo_100'].toString(),
+	}
+
+	next = next ? `&start_from=${next}` : ''
+
+	fetchJsonp(queryURL({ method: 'newsfeed.get', params: `source_ids=g47590299&filters=${params.filter}&count=${params.count}&fields=${params.fields}${next}` }))
 		.then(response => response.json())
 		.then(data => feedRender({
 			data: data.response,

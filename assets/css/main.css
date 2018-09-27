@@ -3,9 +3,9 @@
 }
 
 .main .content {
-	font-size: var(--font-size);
-
 	padding: 10px 0;
+
+	font-size: var(--font-size);
 }
 
 .main .content > * {
