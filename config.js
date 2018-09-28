@@ -6,7 +6,7 @@ const APP_CONFIG = {
 
 	// параметры ВК и приложения
 	vk: {
-        domain: 'vk.com',
+		domain: 'vk.com',
 		domain_oauth: 'oauth.vk.com',
 		domain_api: 'api.vk.com',
 		app_id: 6703807,

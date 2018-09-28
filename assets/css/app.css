@@ -18,7 +18,12 @@ html, body, .container {
 	grid-template-rows: 40px 1fr;
 	grid-template-columns: 1fr;
 
-	font-family: -apple-system, BlinkMacSystemFontRoboto, Arial, Helvetica Neue, sans-serif;
+	font-family:
+		-apple-system,
+		BlinkMacSystemFontRoboto,
+		Arial,
+		Helvetica Neue,
+		sans-serif;
 	font-size: 0;
 
 	-webkit-font-smoothing: subpixel-antialiased;
@@ -38,6 +43,18 @@ html, body, .container {
 	overflow: hidden;
 	word-wrap: break-word;
 	text-overflow: ellipsis;
+}
+
+.text p:not(:first-child) {
+	margin-top: 1em;
+}
+
+.text .emoji {
+	height: var(--font-size);
+
+	margin: 0 1px;
+
+	vertical-align: sub;
 }
 
 a {

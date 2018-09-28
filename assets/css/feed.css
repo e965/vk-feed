@@ -69,10 +69,14 @@
 }
 
 .post .post-photos {
+	margin-top: 10px;
+
 	text-align: center;
 }
 
 .post .post-photos[data-length] {
+	--fr-3: calc(1fr / 3);
+
 	display: grid;
 }
 
@@ -88,7 +92,6 @@
 .post .post-photos[data-length='2'] {
 	grid-template:
 		'a b' auto / .6fr .4fr;
-
 }
 
 .post .post-photos[data-length='3'] {
@@ -107,14 +110,14 @@
 .post .post-photos[data-length='5'] {
 	grid-template:
 		'a a b' 300px
-		'c d e' 150px / .33fr .33fr .33fr;
+		'c d e' 150px / var(--fr-3) var(--fr-3) var(--fr-3);
 }
 
 .post .post-photos[data-length='6'] {
 	grid-template:
 		'a a b' 150px
 		'c d d' 150px
-		'e e f' 150px / .33fr .33fr .33fr;
+		'e e f' 150px / var(--fr-3) var(--fr-3) var(--fr-3);
 }
 
 .post .post-photos[data-length='7'] {
@@ -170,7 +173,7 @@
 	grid-template-rows: auto;
 	grid-template-columns: var(--coverSize) 1fr;
 
-	margin-top: 5px;
+	margin-top: 10px;
 
 	border: 1px solid #d3d9de;
 
@@ -230,7 +233,7 @@
 }
 
 .post .post-link {
-	margin-top: 5px;
+	margin-top: 10px;
 }
 
 .post .post-link .link-link {
@@ -241,6 +244,17 @@
 	position: relative;
 }
 
+.post .post-link[data-size='mini'] .link-link {
+	--coverSize: 100px;
+
+	display: grid;
+
+	grid-template-rows: auto;
+	grid-template-columns: var(--coverSize) 1fr;
+
+	border: 1px solid #d3d9de;
+}
+
 .post .post-link .link-cover {
 	width: 100%; height: 100%;
 
@@ -249,11 +263,28 @@
 	object-fit: cover;
 }
 
+.post .post-link[data-size='mini'] .link-cover {
+	min-height: var(--coverSize);
+
+	border-right: 1px solid #d3d9de;
+}
+
 .post .post-link[data-type='link'] .link-info {
 	padding: 10px;
 
 	border: 1px solid #d3d9de;
 	border-top: 0;
+}
+
+.post .post-link[data-size='mini'][data-type='link'] .link-info {
+	border: 0;
+}
+
+.post .post-link[data-size='micro'][data-type='link'] .link-info {
+	padding: 5px 10px;
+
+	border: 0;
+	border-left: 5px solid #d3d9de;
 }
 
 .post .post-link[data-type='article'] .link-info {
@@ -302,12 +333,18 @@
 	color: #000;
 }
 
+.post .post-link[data-size='mini'] .link-btn {
+	margin-top: 10px;
+}
+
 .post .post-podcast {
 	display: grid;
 
 	grid-template:
 		'p-covr p-info' auto
 		'p-covr p-lstn' 40px / 120px auto;
+
+	margin-top: 10px;
 
 	border: 1px solid #d3d9de;
 }

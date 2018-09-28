@@ -56,18 +56,17 @@ let feedRender = ({ data = {}, feedContainer }) => {
 	let textRender = ({ text = '' }) => {
 		let tmp = text
 
-		tmp = tmp.replace(/\n/g, '<br>')
-
-		// TODO: поддержка хэштегов
+		tmp = `<p>${tmp.replace(/\n/g, '</p><p>')}</p>`
 
 		tmp = Autolinker.link(tmp, {
 			truncate: 50
 		})
 
-		let vkLinksRegEx = /\[(.*?)\]/
+		// https://git.io/fxvBn
+		let vkLinksRegExp = /\[((?:id|club)\d+)\|([^\]]+)\]/
 
 		let vkLinksInText = tmp.match(
-			new RegExp(vkLinksRegEx, 'g')
+			new RegExp(vkLinksRegExp, 'g')
 		)
 
 		if (vkLinksInText) {
@@ -75,7 +74,7 @@ let feedRender = ({ data = {}, feedContainer }) => {
 				let linkTmp = link.split('|')
 
 				tmp = tmp.replace(
-					vkLinksRegEx,
+					vkLinksRegExp,
 					$create.link(
 						`https://${APP_CONFIG.vk.domain}/${linkTmp[0]
 							.replace(/\[/g, '')}`,
@@ -86,6 +85,15 @@ let feedRender = ({ data = {}, feedContainer }) => {
 				)
 			})
 		}
+
+		// TODO: поддержка хэштегов (надо найти/написать регулярку для хештегов вида #тест@test)
+
+		// https://git.io/fxvRC
+		// let vkHashTagRegExp = /#[a-zA-Zа-яА-Я0-9\-_]+/
+
+		tmp = twemoji.parse(tmp,
+			{ folder: 'svg', ext: '.svg' }
+		)
 
 		return tmp
 	}
@@ -137,7 +145,6 @@ let feedRender = ({ data = {}, feedContainer }) => {
 			}
 		})
 
-
 		if (tmpObject.photo.length != 0) {
 			let photos = $create.elem('ul', '', 'post-photos')
 
@@ -164,8 +171,6 @@ let feedRender = ({ data = {}, feedContainer }) => {
 				let biggestImgURL = photoSizes[photoSizes.length - 1].url
 
 				let imgLink = $create.link(biggestImgURL)
-
-				console.log(photoSizesObj)
 
 				img.src = photoSizesObj.x.url
 
@@ -269,7 +274,9 @@ let feedRender = ({ data = {}, feedContainer }) => {
 				let videoElem = $create.elem('li')
 
 				let videoBlock = $create.link(
-					`https://${APP_CONFIG.vk.domain}/wall${postData.authorID}_${postData.postID}?z=video${video.owner_id}_${video.id}`,
+					`https://${APP_CONFIG.vk.domain}/` +
+						`wall${postData.authorID}_${postData.postID}` +
+						`?z=video${video.owner_id}_${video.id}`,
 					'',
 					'post-video'
 				)
@@ -327,22 +334,30 @@ let feedRender = ({ data = {}, feedContainer }) => {
 		}
 
 		if (tmpObject.doc.length != 0) {
+			let docs = $create.elem('ul', '', 'post-docs')
 
+			tmpObject.doc.forEach(doc => {
+				let docElem = $create.elem('li')
+
+				// ...
+
+				docs.appendChild(docElem)
+			})
+
+			attachmentsElem.appendChild(docs)
 		}
 
 		if (tmpObject.link.length != 0) {
 			let link = $create.elem('div', '', 'post-link')
 
+			// TODO: сделать так, что если к посту прикреплена хоть одна картинка, то ссылка становится маленькой (наподобие видео/альбомов/подкастов)
+			// TODO: не у всех ссылок бывают картинки, нужно пофиксить
+
 			let linkData = tmpObject.link[0]
 
-			let photoSizes = linkData.photo.sizes
-			    photoSizes.sort((a, b) => a.width - b.width)
-
-			let biggestImgURL = photoSizes[photoSizes.length - 1].url
+			let linkURL = new URL(linkData.url)
 
 			let linkType = 'link'
-
-			let linkURL = new URL(linkData.url)
 
 			if (
 				linkURL.hostname.match('vk.com') &&
@@ -360,10 +375,27 @@ let feedRender = ({ data = {}, feedContainer }) => {
 				['e']
 			)
 
-			let linkCover = $create.elem('img', '', 'link-cover')
-			    linkCover.src = biggestImgURL
+			let linkSize = 'regular'
 
-			linkLink.appendChild(linkCover)
+			if ('photo' in linkData) {
+				let photoSizes = linkData.photo.sizes
+			    photoSizes.sort((a, b) => a.width - b.width)
+
+				let biggestCoverImg = photoSizes[photoSizes.length - 1]
+
+				if (biggestCoverImg.width <= 500) {
+					linkSize = 'mini'
+				}
+
+				let linkCover = $create.elem('img', '', 'link-cover')
+					linkCover.src = biggestCoverImg.url
+
+				linkLink.appendChild(linkCover)
+			} else {
+				linkSize = 'micro'
+			}
+
+			link.dataset.size = linkSize
 
 			let linkInfo = $create.elem('div', '', 'link-info')
 
@@ -371,14 +403,20 @@ let feedRender = ({ data = {}, feedContainer }) => {
 
 			linkInfo.appendChild(linkTitle)
 
-			if (linkType == 'article') {
-				let linkFakeButton = $create.elem('button', '🗲 Читать', 'button link-btn')
+			let linkFakeButton = $create.elem('button', '', 'button link-btn')
 
+			if (linkType == 'article') {
+				linkFakeButton.textContent = '🗲 Читать'
 				linkInfo.appendChild(linkFakeButton)
-			} else if (linkType == 'link') {
+			} else if (linkType == 'link' || linkSize == 'mini') {
 				let linkSource = $create.elem('div', linkURL.hostname, 'text link-source')
 
 				linkInfo.appendChild(linkSource)
+			}
+
+			if (linkSize == 'mini') {
+				linkFakeButton.textContent = 'Открыть ссылку'
+				linkInfo.appendChild(linkFakeButton)
 			}
 
 			linkLink.appendChild(linkInfo)
@@ -410,8 +448,6 @@ let feedRender = ({ data = {}, feedContainer }) => {
 
 			let podcastInfo = $create.elem('div', '', 'podcast-info')
 				podcastInfo.style.gridArea = 'p-info'
-
-			console.log(podcastData)
 
 			let podcastTitleLink = $create.link(
 				`https://${APP_CONFIG.vk.domain}/podcast${podcastData.owner_id}_${podcastData.id}`,

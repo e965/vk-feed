@@ -84,13 +84,20 @@ let auth = ({ type = 'normal' }) => {
 		)
 	}
 
-	let vkAuthURL = `https://${APP_CONFIG.vk.domain_oauth}/authorize?client_id=${APP_CONFIG.vk.app_id}&display=page&redirect_uri=https://${APP_CONFIG.vk.domain_oauth}/blank.html&response_type=token&scope=${APP_CONFIG.vk.scope.toString()}&v=${APP_CONFIG.vk.version}&state=${APP_CONFIG.app_name}`
+	let vkAuthURL =
+		`https://${APP_CONFIG.vk.domain_oauth}` +
+		`/authorize?client_id=${APP_CONFIG.vk.app_id}&display=page` +
+		`&redirect_uri=https://${APP_CONFIG.vk.domain_oauth}/blank.html` +
+		`&response_type=token&scope=${APP_CONFIG.vk.scope.toString()}` +
+		`&v=${APP_CONFIG.vk.version}&state=${APP_CONFIG.app_name}`
 
 	window.open(vkAuthURL)
 }
 
 let queryURL = ({ method = '', params = false }) =>
-	`https://${APP_CONFIG.vk.domain_api}/method/${method}?${params ? params + '&' : '' }access_token=${appData.get('token')}&&v=${APP_CONFIG.vk.version}`
+	`https://${APP_CONFIG.vk.domain_api}` +
+	`/method/${method}?${params ? params + '&' : '' }` +
+	`access_token=${appData.get('token')}&v=${APP_CONFIG.vk.version}`
 
 let getFeed = ({ feedContainer = $create.elem('div'), next = '' }) => {
 	// https://vk.com/dev/newsfeed.get
@@ -99,7 +106,7 @@ let getFeed = ({ feedContainer = $create.elem('div'), next = '' }) => {
 		count: 10,
 		filter: ['post'].toString(),
 		fields: ['verified', 'photo_100'].toString(),
-		sources: [''].toString()
+		sources: ['g47590299'].toString()
 	}
 
 	let source = params.sources
@@ -108,7 +115,10 @@ let getFeed = ({ feedContainer = $create.elem('div'), next = '' }) => {
 
 	next = next ? `&start_from=${next}` : ''
 
-	fetchJsonp(queryURL({ method: 'newsfeed.get', params: `${source}filters=${params.filter}&count=${params.count}&fields=${params.fields}${next}` }))
+	fetchJsonp(queryURL({
+		method: 'newsfeed.get',
+		params: `${source}filters=${params.filter}&count=${params.count}&fields=${params.fields}${next}`
+	}))
 		.then(response => response.json())
 		.then(data => feedRender({
 			data: data.response,
@@ -229,8 +239,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		let vkScript =
 			'var profileInfo = API.account.getProfileInfo({});' +
-			`var profilePhoto = API.photos.get({ owner_id: ${appData.get('userID')}, album_id: "profile", count: 1, rev: 1 });` +
-			'return { "name": profileInfo.first_name, "photo": profilePhoto.items@.sizes[0][0].url };'
+
+			'var profilePhoto =' +
+				` API.photos.get({ owner_id: ${appData.get('userID')},` +
+				' album_id: "profile", count: 1, rev: 1 });' +
+
+			'return' +
+				' { "name": profileInfo.first_name,' +
+				' "photo": profilePhoto.items@.sizes[0][0].url };'
 
 		fetchJsonp(queryURL({ method: 'execute', params: `code=${vkScript}` }))
 			.then(response => response.json())
@@ -255,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				getFeed({ feedContainer: mainContent })
 			})
 			.catch(error => {
-				console.warn(error)
+				//exit()
 			})
 
 		customizeExternalLinks()
