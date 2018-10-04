@@ -53,10 +53,35 @@ let feedRender = ({ data = {}, feedContainer }) => {
 	// https://stackoverflow.com/a/51471587
 	let alphabet = [...Array(26).keys()].map(i => String.fromCharCode(i + 97))
 
+	let twemojiScript = $make.qs('script[src*="twemoji"]')
+
+	// Если у тега script, который подгружает Twemoji, есть аттрибут data-version, то эмодз подгружаются с jsDelivr. Иначе, они подгружаются с дефолтной CDN, захардкоженной в скрипте (со стандартными настрйками то есть)
+
+	let twemojiScriptObj = {
+		host: new URL(twemojiScript.src).origin
+	}
+
+	let twemojiOptions = {
+		folder: 'svg', ext: '.svg'
+	}
+
+	if (
+		twemojiScript &&
+		'version' in twemojiScript.dataset &&
+		twemojiScript.dataset.version != ''
+	) {
+		twemojiScriptObj.version = twemojiScript.dataset.version
+	}
+
+	if ('version' in twemojiScriptObj) {
+		twemojiOptions.base = twemojiScriptObj.host
+		twemojiOptions.folder = `/npm/twemoji@${twemojiScriptObj.version}/2/svg`
+	}
+
 	let textRender = ({ text = '' }) => {
 		let tmp = text
 
-		tmp = `<p>${tmp.replace(/\n/g, '</p><p>')}</p>`
+		tmp = `<p>${tmp.replace(/\n/g, '<br>')}</p>`
 
 		tmp = Autolinker.link(tmp, {
 			truncate: 50
@@ -91,11 +116,7 @@ let feedRender = ({ data = {}, feedContainer }) => {
 		// https://git.io/fxvRC
 		// let vkHashTagRegExp = /#[a-zA-Zа-яА-Я0-9\-_]+/
 
-		tmp = twemoji.parse(tmp, {
-			base: 'https://abs.twimg.com',
-			folder: '/emoji/v2/svg',
-			ext: '.svg'
-		})
+		tmp = twemoji.parse(tmp, twemojiOptions)
 
 		return tmp
 	}
