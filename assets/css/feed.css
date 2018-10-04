@@ -75,8 +75,6 @@
 }
 
 .post .post-photos[data-length] {
-	--fr-3: calc(1fr / 3);
-
 	display: grid;
 }
 
@@ -110,14 +108,14 @@
 .post .post-photos[data-length='5'] {
 	grid-template:
 		'a a b' 300px
-		'c d e' 150px / var(--fr-3) var(--fr-3) var(--fr-3);
+		'c d e' 150px / .3fr .3fr .4fr;
 }
 
 .post .post-photos[data-length='6'] {
 	grid-template:
 		'a a b' 150px
 		'c d d' 150px
-		'e e f' 150px / var(--fr-3) var(--fr-3) var(--fr-3);
+		'e e f' 150px / .3fr .3fr .4fr;
 }
 
 .post .post-photos[data-length='7'] {

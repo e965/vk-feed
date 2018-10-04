@@ -106,7 +106,7 @@ let getFeed = ({ feedContainer = $create.elem('div'), next = '' }) => {
 		count: 10,
 		filter: ['post'].toString(),
 		fields: ['verified', 'photo_100'].toString(),
-		sources: ['g47590299'].toString()
+		sources: [''].toString()
 	}
 
 	let source = params.sources
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				getFeed({ feedContainer: mainContent })
 			})
 			.catch(error => {
-				//exit()
+				exit()
 			})
 
 		customizeExternalLinks()

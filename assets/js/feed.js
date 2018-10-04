@@ -91,9 +91,11 @@ let feedRender = ({ data = {}, feedContainer }) => {
 		// https://git.io/fxvRC
 		// let vkHashTagRegExp = /#[a-zA-Zа-яА-Я0-9\-_]+/
 
-		tmp = twemoji.parse(tmp,
-			{ folder: 'svg', ext: '.svg' }
-		)
+		tmp = twemoji.parse(tmp, {
+			base: 'https://abs.twimg.com',
+			folder: '/emoji/v2/svg',
+			ext: '.svg'
+		})
 
 		return tmp
 	}
