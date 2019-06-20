@@ -1,10 +1,14 @@
 'use strict'
 
-let getImportedNode = nodeName => {
-	let importBody = $make.qs(`link[data-import='${nodeName}']`).import.body
+let mainContent = $make.qs('.main .content')
 
-	return $make.qsf('[data-node]', importBody)
+let setMainContentDataset = (dataset = '', data = false) => {
+	data
+		? mainContent.dataset[dataset] = data
+		: delete mainContent.dataset[dataset]
 }
+
+let getTemplateByID = ID => $make.qs(`template#${ID}`).content
 
 let popup = content => {
 
@@ -19,7 +23,7 @@ let customizeExternalLinks = () => {
 
 let appData = {
 	set: (data = { token, userID, expiresTime, scope }) => {
-		$ls.set(
+		$storage.set(
 			APP_CONFIG.storage.appData,
 			JSON.stringify(data)
 		)
@@ -31,7 +35,7 @@ let appData = {
 		let data = {}
 
 		try {
-			data = JSON.parse($ls.get(APP_CONFIG.storage.appData))
+			data = JSON.parse($storage.get(APP_CONFIG.storage.appData))
 
 			if (data == null) {
 				throw 0 // такое бывает, если айтем в хранилище - не объект, а строка
@@ -63,7 +67,7 @@ let appData = {
 	},
 
 	remove: () => {
-		$ls.rm(APP_CONFIG.storage.appData)
+		$storage.rm(APP_CONFIG.storage.appData)
 	}
 }
 
@@ -78,7 +82,7 @@ let auth = ({ type = 'normal' }) => {
 		APP_CONFIG.vk.scope.push('offline')
 	} else {
 		// сохранять время нажатия на кнопку необходимо для вычисления примерного времени действия токена
-		$ls.set(
+		$storage.set(
 			APP_CONFIG.storage.timeOfButtonClick,
 			new Date().getTime() / 1000
 		)
@@ -120,10 +124,17 @@ let getFeed = ({ feedContainer = $create.elem('div'), next = '' }) => {
 		params: `${source}filters=${params.filter}&count=${params.count}&fields=${params.fields}${next}`
 	}))
 		.then(response => response.json())
-		.then(data => feedRender({
-			data: data.response,
-			feedContainer: feedContainer
-		}))
+		.then(data => {
+			if (next == '') {
+				setMainContentDataset('style')
+				mainContent.textContent = ''
+			}
+
+			feedRender({
+				data: data.response,
+				feedContainer: feedContainer
+			})
+		})
 		.catch(error => {
 			console.warn(error)
 		})
@@ -135,8 +146,6 @@ let exit = () => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	let mainContent = $make.qs('.main .content')
-
 	if (location.pathname.search('index') != -1) {
 		let newPageURL =
 			location.pathname
@@ -147,18 +156,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		history.pushState('', document.title, newPageURL)
 	}
 
-	let setMainContentDataset = (dataset = '', data = false) => {
-		data
-			? mainContent.dataset[dataset] = data
-			: delete mainContent.dataset[dataset]
-	}
-
 	let showHelloPage = () => {
 		mainContent.textContent = ''
 
-		mainContent.appendChild(getImportedNode('hello'))
+		mainContent.appendChild(getTemplateByID('hello'))
 
-		let helloNode = $make.qs('[data-node="hello"]')
+		let helloNode = $make.qsf('[data-node="hello"]', mainContent)
 
 		$make.qsf('button[data-action="auth"]', helloNode)
 			.addEventListener('click',  () => auth({ type: 'normal' }))
@@ -264,9 +267,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				profileImage.style.backgroundImage = `url(${data.photo})`
 
 				profileBlock.appendChild(profileImage)
-
-				mainContent.textContent = ''
-				setMainContentDataset('style')
 
 				getFeed({ feedContainer: mainContent })
 			})

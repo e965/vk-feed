@@ -53,31 +53,6 @@ let feedRender = ({ data = {}, feedContainer }) => {
 	// https://stackoverflow.com/a/51471587
 	let alphabet = [...Array(26).keys()].map(i => String.fromCharCode(i + 97))
 
-	let twemojiScript = $make.qs('script[src*="twemoji"]')
-
-	// Если у тега script, который подгружает Twemoji, есть аттрибут data-version, то эмодз подгружаются с jsDelivr. Иначе, они подгружаются с дефолтной CDN, захардкоженной в скрипте (со стандартными настрйками то есть)
-
-	let twemojiScriptObj = {
-		host: new URL(twemojiScript.src).origin
-	}
-
-	let twemojiOptions = {
-		folder: 'svg', ext: '.svg'
-	}
-
-	if (
-		twemojiScript &&
-		'version' in twemojiScript.dataset &&
-		twemojiScript.dataset.version != ''
-	) {
-		twemojiScriptObj.version = twemojiScript.dataset.version
-	}
-
-	if ('version' in twemojiScriptObj) {
-		twemojiOptions.base = twemojiScriptObj.host
-		twemojiOptions.folder = `/npm/twemoji@${twemojiScriptObj.version}/2/svg`
-	}
-
 	let textRender = ({ text = '' }) => {
 		let tmp = text
 
@@ -116,7 +91,9 @@ let feedRender = ({ data = {}, feedContainer }) => {
 		// https://git.io/fxvRC
 		// let vkHashTagRegExp = /#[a-zA-Zа-яА-Я0-9\-_]+/
 
-		tmp = twemoji.parse(tmp, twemojiOptions)
+		tmp = twemoji.parse(tmp, {
+			folder: 'svg', ext: '.svg'
+		})
 
 		return tmp
 	}
@@ -173,6 +150,8 @@ let feedRender = ({ data = {}, feedContainer }) => {
 
 			if (tmpObject.photo.length > 1) {
 				photos.dataset.length = tmpObject.photo.length
+			} else {
+				photos.dataset.single = ''
 			}
 
 			tmpObject.photo.forEach((photo, i) => {
@@ -295,7 +274,6 @@ let feedRender = ({ data = {}, feedContainer }) => {
 
 			tmpObject.video.forEach(video => {
 				let videoElem = $create.elem('li')
-
 				let videoBlock = $create.link(
 					`https://${APP_CONFIG.vk.domain}/` +
 						`wall${postData.authorID}_${postData.postID}` +
@@ -573,11 +551,25 @@ let feedRender = ({ data = {}, feedContainer }) => {
 
 		postMetaAuthor.appendChild(postMetaAuthorLink)
 
+		postMeta.appendChild(postMetaAuthor)
+
 		let postMetaTime = $create.elem('div', '', 'post-time')
 
 		let authorID = ('name' in author ? '-' : '') + author.id
 
 		post.dataset.author = authorID
+
+		if ('data' in item.post_source && item.post_source.data != '') {
+			if (item.post_source.data == 'profile_photo') {
+				postMeta.appendChild(
+					$create.elem(
+						'div',
+						'В сообществе обновилась фотография',
+						'post-source'
+					)
+				)
+			}
+		}
 
 		let postMetaTimeLink = $create.link(
 			`https://${APP_CONFIG.vk.domain}/wall${authorID}_${item.post_id}`,
@@ -588,7 +580,6 @@ let feedRender = ({ data = {}, feedContainer }) => {
 
 		postMetaTime.appendChild(postMetaTimeLink)
 
-		postMeta.appendChild(postMetaAuthor)
 		postMeta.appendChild(postMetaTime)
 
 		postHeader.appendChild(authorImage)
@@ -617,6 +608,8 @@ let feedRender = ({ data = {}, feedContainer }) => {
 				})
 			)
 		}
+
+		postContent.appendChild(separatorLine)
 
 		post.appendChild(postContent)
 

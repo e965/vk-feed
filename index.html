@@ -8,6 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="dns-prefetch" href="//twemoji.maxcdn.com">
 	<link rel="dns-prefetch" href="//pp.userapi.com">
 	<link rel="dns-prefetch" href="//oauth.vk.com">
 	<link rel="dns-prefetch" href="//api.vk.com">
@@ -19,6 +20,14 @@
 	<link rel="stylesheet" href="./assets/css/main.css">
 	<link rel="stylesheet" href="./assets/css/feed.css">
 	<link rel="stylesheet" href="./assets/css/mediaq.css">
+
+	<noscript>
+		<style>
+			.main .content__loading {
+				display: none !important;
+			}
+		</style>
+	</noscript>
 
 	<style class="custom"></style>
 </head><body>
@@ -35,7 +44,13 @@
 		</header>
 
 		<main class="main">
-			<div class="content" data-error="no-js" data-style='centred'>
+			<div class="content" data-error="no-js" data-style="centred">
+				<div class="block content__loading">
+					<div class="block-content">
+						<p>Загрузка...</p>
+					</div>
+				</div>
+
 				<noscript class="block">
 					<div class="block-content">
 						<p>Пожалуйста, включи JavaScript в своём браузере.</p>
@@ -52,31 +67,113 @@
 				</ul>
 
 				<ul class="list">
-					<li><a href="javascript:void(0)" data-action="settings">настройки</a></li>
+					<li style="display: none"><a href="javascript:void(0)" data-action="settings">настройки</a></li>
 					<li><a href="javascript:void(0)" data-action="exit">выход</a></li>
 				</ul>
 			</footer>
 		</main>
 	</div>
 
-	<link rel="import" href="./assets/nodes/hello.htm" data-import="hello">
-	<link rel="import" href="./assets/nodes/settings.htm" data-import="settings">
+	<template id="hello">
+		<div class="block" data-node="hello">
+			<div class="block-content">
+				<p>Привет!</p>
+				<p>Для использования приложения авторизуйся через VK, пожалуйста.</p>
+
+				<div class="auth-things" style="margin: 1em 0 0; cursor: default">
+					<div class="auth-buttons">
+						<button class="button" data-action="auth-forever">Авторизация с "бесконечным" ключом</button>
+
+						<br>
+
+						<button style="margin-top: 5px" class="button" data-action="auth">Авторизация на сутки</button>
+					</div>
+
+					<br>
+
+					<form class="auth-form">
+						<p><label for="auth-input">После окончания авторизации скопируй URL, который будет у открытой в новом окне страницы, в это поле:</label></p>
+
+						<input type="url" class="input auth-input" id="auth-input" style="width: 100%; margin: 5px 0" autocomplete="off" placeholder="https://oauth.vk.com/blank.html#access_token=..." pattern="https://.*" required>
+
+						<button class="button" type="submit">Введено!</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="separator-line"></div>
+
+			<div class="block-content">
+				<h3 style="text-align: center; margin-bottom: 5px">FAQ:</h3>
+
+				<details class="spoiler">
+					<summary class="spoiler-title">Зачем так сложно?</summary>
+
+					<div class="spoiler-content">
+						<p>Иначе не позволяет VK API и правила его использования.<p>
+
+						<p>¯\_(ツ)_/¯</p>
+					</div>
+				</details>
+
+				<details class="spoiler">
+					<summary class="spoiler-title">Чем отличаются виды авторизации?</summary>
+
+					<div class="spoiler-content">
+						<p>Следует начать с того, зачем вообще сделано два вида авторизации: API-ключ от VK хранится у вас в локальном хранилище браузера в незащищённом виде, и поэтому сторонние приложения (например, расширения браузера), имеющие доступ к нему [хранилищу], могут его украсть.<p>
+
+						<br>
+
+						<p>Обычная авторизация даёт приложению доступ всего на сутки. Этот вариант рекомендуется, если вы параноик, который беспокоится за безопасность своих данных. В этом случае по истечении срока действия ключа, необходимо будет авторизоваться заново.</p>
+						<p>Авторизация с "бесконечным" ключом даёт приложению, собственно, бесконечный доступ к данным. Этот вариант рекомендуется, если вам нечего скрывать, или если вы уверены, что вы обеспечили себе достаточный уровень безопасности.</p>
+
+						<br>
+
+						<p>В любом случае, можно вручную отозвать доступ у приложения. Сделать это можно здесь: <a href="https://vk.com/settings?act=apps">vk.com/settings?act=apps</a>. В случае, если вы обнаружили, что ваш ключ был украден, сделать это необходимо НЕМЕДЛЕННО.</p>
+					</div>
+				</details>
+
+				<details class="spoiler">
+					<summary class="spoiler-title">Как мы храним твои данные?</summary>
+
+					<div class="spoiler-content">
+						<p>Мы не храним твои данные. Для доступа к твоим новостям приложение использует специальный API-ключ, который ему выдаёт VK API после авторизации, и который хранится на твоём устройстве в локальном хранилище браузера.</p>
+
+						<br>
+
+						<p>Но так как мы используем сторонние сервисы для обеспечения стабильной и комфортной работы приложения, то эти самые сервисы могут собирать различную информацию о тебе (например, IP-адрес или User agent браузера).</p>
+						<p>Поэтому настоятельно просим тебя изучить следующие политики конфиденциальности перед использованием приложения: <a href="https://vk.com/privacy">VK</a>, <a href="https://privacy.google.com">Google</a>, <a href="https://help.github.com/articles/github-privacy-statement/">GitHub</a>, <a href="https://www.jsdelivr.com/privacy-policy-jsdelivr-net">jsDelivr</a>, <a href="https://www.stackpath.com/legal/privacy-statement/">StackPath</a>.</p>
+
+						<br>
+
+						<p>Используя данное приложение, ты принимаешь все условия, указанные в приложенных выше документах.</p>
+						<p>Иначе, покинь страницу и (по желанию) почисти cookie.</p>
+					</div>
+				</details>
+			</div>
+
+			<div class="separator-line"></div>
+
+			<div class="block-content">
+				<p>Исходный код приложения доступен <a href="https://github.com/tehcojam/vk-feed">на GitHub</a>.</p>
+			</div>
+		</div>
+	</template>
 
 	<!-- https://www.jsdelivr.com/package/npm/kamina-js -->
-	<script src="https://cdn.jsdelivr.net/npm/kamina-js@1.2.7/dist/kamina.min.js" integrity="sha256-O7VS3dDmlzbLeD77bEGhtckWN2plD9qFSTD0W7oMtsM=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/kamina-js@1.3.1/dist/kamina.min.js" integrity="sha256-NeqDrp4SsFVhWQLw7czGq5WuZPXEJXob+jDW0iamh2s=" crossorigin="anonymous"></script>
 
 	<!-- https://www.jsdelivr.com/package/npm/fetch-jsonp -->
 	<script src="https://cdn.jsdelivr.net/npm/fetch-jsonp@1.1.3/build/fetch-jsonp.js" integrity="sha256-tq+ecRrapUzktALBIRvPglMV8SWXcRubLF1ZQLskfp8=" crossorigin="anonymous"></script>
 
 	<!-- https://www.jsdelivr.com/package/npm/autolinker -->
-	<script src="https://cdn.jsdelivr.net/npm/autolinker@1.7.1/dist/Autolinker.min.js" integrity="sha256-yZXU/f+V8xVBqX0cCVVySvxvjU6h8uuQb1N0e8jRvhE=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/autolinker@3.1.0/dist/Autolinker.min.js" integrity="sha256-O9WojwhjjBZ2OJGV72G771BN/KsZYPsm7vprtMHfCio=" crossorigin="anonymous"></script>
 
 	<!-- https://www.jsdelivr.com/package/npm/bigpicture -->
-	<script src="https://cdn.jsdelivr.net/npm/bigpicture@1.5.1/dist/BigPicture.min.js" integrity="sha256-ahSdxD8soM9q9UIGTpxeyIA8o6Hz8jMWl//OZT1xVHo=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bigpicture@2.1.2/dist/BigPicture.min.js" integrity="sha256-1uXw8ajcCJh5vy6tm7QYxQQNnWHQcli30x+xKGTL+XM=" crossorigin="anonymous"></script>
 
 	<!-- https://www.jsdelivr.com/package/npm/twemoji -->
-	<!-- У тега необходимо также заполнять аттрибут data-version в соотвествии с используемой версией -->
-	<script src="https://cdn.jsdelivr.net/npm/twemoji@11.0.1/2/twemoji.min.js" integrity="sha256-AsQ6AskD2N30tG+vyEyJzpGgXIOQ0Z5AAFE7l+GmZ5s=" data-version="11.0.1" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/twemoji@12.0.4/2/twemoji.min.js" integrity="sha256-Pbqu2FUGGcJj9IWMiV6JVz6q2BjlGeVrwFW/aXFE5xk=" crossorigin="anonymous"></script>
 
  	<script src="./config.js"></script>
 	<script src="./assets/js/app.js"></script>

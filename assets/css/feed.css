@@ -14,7 +14,7 @@
 }
 
 .feed .post .block-content {
-	padding-top: 20px;
+	padding: 20px;
 }
 
 .post:not(:first-child) {
@@ -39,6 +39,10 @@
 
 }
 
+.post .post-meta > div:not(:first-child) {
+	margin-top: 5px;
+}
+
 .post .post-meta .post-author a {
 	font-weight: 600;
 }
@@ -48,10 +52,7 @@
 	margin-left: 5px;
 }
 
-.post .post-meta .post-time {
-	margin-top: 5px;
-}
-
+.post .post-meta .post-source,
 .post .post-meta .post-time a {
 	color: #939393;
 }
@@ -72,6 +73,10 @@
 	margin-top: 10px;
 
 	text-align: center;
+}
+
+.post .post-photos[data-single] a {
+	justify-content: flex-start;
 }
 
 .post .post-photos[data-length] {
@@ -288,6 +293,8 @@
 .post .post-link[data-type='article'] .link-info {
 	display: flex;
 	width: 100%; height: 100%;
+
+	padding: 10px;
 
 	position: absolute;
 	top: 0; left: 0;

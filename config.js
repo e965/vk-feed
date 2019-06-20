@@ -2,7 +2,7 @@
 
 const APP_CONFIG = {
 	// название приложения
-	app_name: 'ru.cojam.vkFeed',
+	app_name: 'ru.e965.vkFeed',
 
 	// параметры ВК и приложения
 	vk: {
@@ -10,7 +10,7 @@ const APP_CONFIG = {
 		domain_oauth: 'oauth.vk.com',
 		domain_api: 'api.vk.com',
 		app_id: 6703807,
-		version: 5.85,
+		version: 5.95,
 		scope: ['friends', 'wall', 'photos']
 	},
 
