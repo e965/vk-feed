@@ -240,18 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	let appInit = () => {
 		// https://vk.com/dev/execute
 
-		let vkScript =
-			'var profileInfo = API.account.getProfileInfo({});' +
-
-			'var profilePhoto =' +
-				` API.photos.get({ owner_id: ${appData.get('userID')},` +
-				' album_id: "profile", count: 1, rev: 1 });' +
-
-			'return' +
-				' { "name": profileInfo.first_name,' +
-				' "photo": profilePhoto.items@.sizes[0][0].url };'
-
-		fetchJsonp(queryURL({ method: 'execute', params: `code=${vkScript}` }))
+		fetchJsonp(queryURL({ method: 'execute.getSimpleProfileInfo', params: `userID=${appData.get('userID')}` }))
 			.then(response => response.json())
 			.then(_data => {
 				let data = _data.response
