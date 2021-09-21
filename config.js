@@ -10,7 +10,7 @@ const APP_CONFIG = {
 		domain_oauth: 'oauth.vk.com',
 		domain_api: 'api.vk.com',
 		app_id: 6703807,
-		version: 5.95,
+		version: 5.123,
 		scope: ['friends', 'wall', 'photos']
 	},
 
