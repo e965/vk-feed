@@ -286,7 +286,8 @@ let feedRender = ({ data = {}, feedContainer }) => {
 
 				let videoThumbImg = $create.elem('img')
 
-				videoThumbImg.src = video.photo_320
+				videoThumbImg.src = video.image[video.image.length - 1].url
+				videoThumbImg.alt = video.title
 
 				videoThumb.appendChild(videoThumbImg)
 
